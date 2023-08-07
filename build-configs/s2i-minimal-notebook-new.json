@@ -1,0 +1,36 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: s2i-minimal-notebook
+  name: s2i-minimal-notebook-py36
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: s2i-minimal-notebook:3.6
+  postCommit: {}
+  resources:
+    limits:
+      memory: 1Gi
+  runPolicy: Serial
+  source:
+    contextDir: minimal-notebook
+    git:
+      ref: main
+      uri: https://gitlab.consulting.redhat.com/shah-zobair/jupyter-notebook-ocp
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: python-36:1-77
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange

@@ -1,0 +1,28 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+  name: s2i-minimal-notebook
+  namespace: openshift
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: quay.io/jupyteronopenshift/s2i-minimal-notebook-py35:2.5.1
+    generation: 2
+    importPolicy: {}
+    name: "3.5"
+    referencePolicy:
+      type: Source
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: quay.io/jupyteronopenshift/s2i-minimal-notebook-py36:2.5.1
+    generation: 2
+    importPolicy: {}
+    name: "3.6"
+    referencePolicy:
+      type: Source
