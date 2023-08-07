@@ -19,8 +19,17 @@ case $OC_VERSION in
     4.3|4.3+|4.3.*)
         OC_VERSION=4.3
         ;;
+    4.10|4.10+|4.10.*)
+        OC_VERSION=4.10
+        ;;
+    4.11|4.11+|4.11.*)
+        OC_VERSION=4.11
+        ;;
+    4.12|4.12+|4.12.*)
+        OC_VERSION=4.12
+        ;;
     *)
-        OC_VERSION=4.1
+        OC_VERSION=4.10
         ;;
 esac
 

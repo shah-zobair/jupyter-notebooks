@@ -1,1 +1,1 @@
-Dockerfile-py36
+Dockerfile-ubi7-py36
