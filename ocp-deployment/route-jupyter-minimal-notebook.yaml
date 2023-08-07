@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    app: minimal-notebook
+    app.kubernetes.io/component: minimal-notebook
+    app.kubernetes.io/instance: minimal-notebook
+  name: minimal-notebook
+spec:
+  #host: minimal-notebook-shah-jupyter-2.apps.shrocp4upi411ovn.lab.psi.pnq2.redhat.com
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: minimal-notebook
+    weight: 100
+  wildcardPolicy: None

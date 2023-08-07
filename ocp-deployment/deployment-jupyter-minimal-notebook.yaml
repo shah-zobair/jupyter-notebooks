@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: minimal-notebook
+    app.kubernetes.io/component: minimal-notebook
+    app.kubernetes.io/instance: minimal-notebook
+  name: minimal-notebook
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      deployment: minimal-notebook
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      labels:
+        deployment: minimal-notebook
+    spec:
+      containers:
+      - env:
+        - name: JUPYTER_NOTEBOOK_PASSWORD
+          value: mypassword
+        image: quay.io/szobair/jupyter-notebook-minimal:nodejs10-python-3.6
+        imagePullPolicy: IfNotPresent
+        name: s2i-minimal-notebook
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
