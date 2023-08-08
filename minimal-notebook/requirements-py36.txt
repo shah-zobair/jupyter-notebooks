@@ -1,0 +1,23 @@
+notebook
+jupyterhub
+jupyterlab
+jupyter_server
+jupyter_core
+jupyter_client
+IPython
+ipykernel
+traitlets
+nbclient
+nbconvert
+nbformat
+dask
+tornado
+distributed
+#jupyter_kernel_gateway>2.5.2
+#jupyter_kernel_gateway
+#dask<2.7.0; python_version < "3.6"
+#dask>2.8.1; python_version >= "3.9"
+#distributed<2.7.0; python_version < "3.6"
+#distributed>=2.8.1; python_version >= "3.9"
+#tornado<6.0.0; python_version < "3.6"
+#tornado>=6.2.0; python_version >= "3.9"

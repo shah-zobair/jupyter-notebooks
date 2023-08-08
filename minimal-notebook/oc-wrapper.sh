@@ -29,7 +29,7 @@ case $OC_VERSION in
         OC_VERSION=4.12
         ;;
     *)
-        OC_VERSION=4.10
+        OC_VERSION=4.12
         ;;
 esac
 

@@ -14,15 +14,17 @@ pip install -U pip setuptools wheel
 
 # Install mod_wsgi for use in optional webdav support.
 
-pip install 'mod_wsgi==4.6.8'
+#pip install 'mod_wsgi==4.6.8'
+pip install 'mod_wsgi'
 
 # Install supervisord for managing multiple applications.
 
-pip install 'supervisor==4.1.0'
+#pip install 'supervisor==4.1.0'
+pip install 'supervisor'
 
 # Install base packages needed for running Jupyter Notebooks. 
 
-pip install -r /tmp/src/requirements.txt
+pip install -r /tmp/src/requirements-py36.txt
 
 npm cache clean --force
 
@@ -30,8 +32,7 @@ rm -rf $HOME/.cache/yarn
 rm -rf $HOME/.node-gyp
 
 # Copy into place default config files for Jupyter and Apache webdav.
-
-cp /tmp/src/jupyter_notebook_config.py /opt/app-root/etc/
+cp /tmp/src/jupyter_notebook_config-v7.py /opt/app-root/etc/
 cp /tmp/src/jupyter_kernel_gateway_config.py /opt/app-root/etc/
 cp /tmp/src/httpd-webdav.conf /opt/app-root/etc/
 
@@ -55,40 +56,15 @@ mv /tmp/src/*.sh /opt/app-root/bin
 
 # Install oc command line client for OpenShift cluster.
 
-#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v3/clients/3.11.153/linux/oc.tar.gz && \
+#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.10/openshift-client-linux.tar.gz && \
 #    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-3.11 && \
+#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.10 && \
 #    rm /tmp/oc.tar.gz
 
-#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v3/clients/4.0.22/linux/oc.tar.gz && \
+#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.11/openshift-client-linux.tar.gz && \
 #    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.0 && \
+#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.11 && \
 #    rm /tmp/oc.tar.gz
-
-#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/linux/oc.tar.gz && \
-#    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.1 && \
-#    rm /tmp/oc.tar.gz
-
-#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.2/linux/oc.tar.gz && \
-#    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.2 && \
-#    rm /tmp/oc.tar.gz
-
-#curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.3/linux/oc.tar.gz && \
-#    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-#    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.3 && \
-#    rm /tmp/oc.tar.gz
-
-curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.10/openshift-client-linux.tar.gz && \
-    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.10 && \
-    rm /tmp/oc.tar.gz
-
-curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.11/openshift-client-linux.tar.gz && \
-    tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
-    mv /opt/app-root/bin/oc /opt/app-root/bin/oc-4.11 && \
-    rm /tmp/oc.tar.gz
 
 curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.12/openshift-client-linux.tar.gz && \
     tar -C /opt/app-root/bin -zxf /tmp/oc.tar.gz oc && \
@@ -107,14 +83,17 @@ echo "source /opt/app-root/etc/generate_container_user" >> /opt/app-root/etc/scl
 
 # Install packages required by the proxy process.
 
-(cd /opt/app-root/gateway && source scl_source enable rh-nodejs10 && \
-    npm install --production)
+#(cd /opt/app-root/gateway && source scl_source enable rh-nodejs10 && \
+#    npm install --production)
+
+(cd /opt/app-root/gateway && npm install --production)
 
 # Create additional directories.
 
 echo " -----> Creating additional directories."
 
 mkdir -p /opt/app-root/data
+mkdir -p /opt/app-root/src/.jupyter
 
 # Generate default supervisord.conf file.
 
