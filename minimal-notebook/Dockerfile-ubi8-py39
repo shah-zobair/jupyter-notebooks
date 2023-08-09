@@ -4,6 +4,13 @@ FROM registry.access.redhat.com/ubi8/python-39
 
 USER root
 
+RUN yum update -y && yum clean all
+
+RUN pip install -U pip setuptools wheel && \
+    pip install -U mod_wsgi supervisor && \
+    pip install -U notebook jupyterhub jupyterlab jupyter_server jupyter_core jupyter_client IPython ipykernel traitlets nbclient nbconvert nbformat dask tornado distributed && \
+    npm cache clean --force
+
 COPY . /tmp/src
 
 RUN rm -rf /tmp/src/.git* && \
