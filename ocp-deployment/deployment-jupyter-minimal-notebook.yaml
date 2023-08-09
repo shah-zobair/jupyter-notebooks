@@ -30,7 +30,8 @@ spec:
         - name: JUPYTER_NOTEBOOK_PASSWORD
           value: mypassword
         #image: quay.io/szobair/jupyter-notebook-minimal:nodejs10-python-3.6-v2
-        image: quay.io/szobair/jupyter-notebook-minimal:nodejs14-python-3.9-v2
+        #image: quay.io/szobair/jupyter-notebook-minimal:nodejs14-python-3.9-v2
+        image: quay.io/szobair/jupyter-notebook-minimal:nodejs14-python-3.9-v3
         imagePullPolicy: Always
         name: s2i-minimal-notebook
         ports:
@@ -39,6 +40,8 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        securityContext:
+          allowPrivilegeEscalation: false
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
