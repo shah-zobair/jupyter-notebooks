@@ -4,7 +4,8 @@ FROM registry.access.redhat.com/ubi8/python-39
 
 USER root
 
-RUN yum update -y && yum clean all
+RUN yum update -y && \
+    yum clean all
 
 RUN pip install -U pip setuptools wheel && \
     pip install -U mod_wsgi supervisor && \
